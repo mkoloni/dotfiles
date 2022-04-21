@@ -1,0 +1,378 @@
+include-file = ~/.config/polybar/colors.ini
+
+[bar/bar1]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 98%
+height = 27
+offset-x = 1%
+offset-y = 0.5%
+radius = 9.8
+bottom = false
+fixed-center = true
+separator = |
+
+padding-right = 5
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+; border-bottom-size = 2
+border-bottom-color = ${colors.color8}
+
+module-margin-left = 5
+module-margin-right = 1
+
+
+font-0 = "FontAwesome:size=13;2"
+font-1 = "JetBrainsMono Nerd Font:size=11;2"
+font-2 = "JetBrainsMono Nerd Font:size=11;2"
+font-3 = "JetBrainsMono Nerd Font:size=11;2"
+
+
+;  font-0 = "SF Pro Display:style=Regular:size=11:antialias=true;3"
+;  font-1 = "JetBrainsMono Nerd Font Mono:style=Regular:size=14:antialias=true;4"
+
+modules-left = bspwm 
+modules-center = date
+modules-right = memory cpu temperature battery
+
+tray-position = right
+tray-padding = 6
+tray-background = ${colors.background}
+
+wm-restack = bspwm
+
+enable-ipc = true
+override-redirect = false
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+label-urgent-foreground = ${colors.background-alt}
+label-urgent-background = ${colors.color9}
+
+
+[module/xwindow]
+type = internal/xwindow
+format = <label>
+label = %title%
+label-maxlen = 30
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format = <label-indicator>
+
+label-indicator = 􀇳
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-foreground = ${colors.foreground}
+
+[module/bspwm]
+type = internal/bspwm
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-focused = %icon%
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.xbs}
+label-focused-padding = 3
+
+label-occupied = %icon%
+label-occupied-padding = 3
+
+label-urgent = %icon%
+label-urgent-foreground = ${colors.alert}
+label-urgent-padding = 3
+
+label-empty =
+
+ws-icon-0 = 0;
+ws-icon-1 = 1;
+ws-icon-2 = 2;
+ws-icon-3 = 3;
+ws-icon-4 = 4;
+ws-icon-5 = 5;
+ws-icon-6 = 6;
+ws-icon-7 = 7;
+ws-icon-8 = 8;$
+ws-icon-9 = 9;
+ws-icon-default = 
+
+[module/player]
+type = custom/script
+exec = ~/.config/polybar/scripts/player-mpris-tail.py -f '{icon} {artist} - {:t50:{title}:}'
+tail = true
+click-left = ~/.config/polybar/scripts/player-mpris-tail.py play-pause &
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/xbacklight]
+type = internal/xbacklight
+
+output = eDP-1-1
+
+format = <ramp> <label>
+; format-prefix = "􀆮 "
+ramp-0 = 􀆮
+ramp-1 = 􀆮
+ramp-2 = 􀆮
+ramp-3 = 􀆮
+ramp-0-foreground = #fffeea
+ramp-1-foreground = #fffdd0
+ramp-2-foreground = #fffcb7
+ramp-3-foreground = #fffa84
+label = %percentage%%
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+enable-scroll = true
+
+[module/cpu]
+type = internal/cpu
+format-prefix = "CPU_"
+interval = 2
+format-prefix-foreground = ${colors.foreground}
+label = %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "MEM_"
+; format-pefix-foreground = ${colors.color13}
+label = %percentage_used%%
+format = <label>
+
+bar-used-indicator = 
+bar-used-width = 6
+bar-used-foreground-0 = #5AF78E
+bar-used-foreground-1 = #5AF78E
+bar-used-foreground-2 = #FF7657
+bar-used-foreground-3 = #FF5C57
+bar-used-fill = 􀂓
+bar-used-empty = 􀂒
+bar-used-empty-foreground = #444444
+
+[module/netspeed]
+type = internal/network
+interface = enp2s0
+interval = 1.0
+format-connected = <label-connected>
+format-connected-padding = 2
+format-connected-background=${colors.background}
+label-connected = " 􀁶%upspeed%  􀁸%downspeed%"
+
+[module/netspeed2]
+type = internal/network
+interface = wlo1
+interval = 1.0
+format-connected = <label-connected>
+format-connected-padding = 2
+format-connected-background=${colors.background}
+label-connected = " 􀁶%upspeed%  􀁸%downspeed%"
+
+[module/wlan]
+type = internal/network
+interface = wlo1
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+label-connected = %essid%
+
+format-disconnected =
+
+ramp-signal-0 = 􀙇
+ramp-signal-foreground = ${colors.foreground}
+
+click-left = exec nm-applet
+
+[module/eth]
+type = internal/network
+interface = enp2s0
+interval = 3.0
+
+format-connected-prefix = "燎 "
+; format-connected-prefix-foreground = ${colors.color3}
+label-connected = %local_ip%
+
+format-disconnected =
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = %a %d
+date-alt = " %d-%m-%Y"
+time = %H:%M
+time-alt = %H:%M
+
+label = %date% %time%
+format = <label>
+format-prefix = "􀐫 "
+; format-prefix-foreground = #D08770
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%%
+label-volume-foreground = ${colors.foreground}
+click-right = pavucontrol
+
+label-muted = 􀊣
+label-muted-foreground = ${colors.color4}
+
+ramp-volume-0 = 􀊤
+ramp-volume-1 = 􀊦
+; ramp-volume-foreground = #8FBCBB
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <ramp-volume> <label-volume>
+
+label-muted = 
+label-muted-foreground = ${colors.foreground}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+
+[module/rec]
+type = custom/script
+exec = ~/.config/polybar/scripts/rec.sh
+format = <label>
+format-foreground = ${colors.color9}
+interval = 2
+
+[module/updates-arch]
+type = custom/script
+exec = ~/.config/polybar/scripts/updates-arch.sh
+interval = 3600
+
+[module/battery]
+type = internal/battery
+format-prefix = "BATT_"
+battery = BAT0
+adapter = AC
+full-at = 99
+
+time-format = %H:%M
+
+label-charging = 􀋥 %percentage%
+; format-charging = %{A1:$HOME/.config/polybar/scripts/battery:}<label-charging>%{A}
+format-charging = <label-charging>
+
+; format-discharging = %{A1:$HOME/.config/polybar/scripts/battery:}<ramp-capacity>%{A}
+label-discharging = %percentage%
+format-discharging = <ramp-capacity> <label-discharging>
+
+format-full = 􀋦
+format-full-prefix-foreground = #FFFFFF
+
+ramp-capacity-0 = 􀒂
+ramp-capacity-1 = 􀊼
+ramp-capacity-2 = 􀊼
+ramp-capacity-3 = 􀊼
+ramp-capacity-4 = 􀊼
+ramp-capacity-5 = 􀊼
+ramp-capacity-6 = 􀊼
+ramp-capacity-7 = 􀊼
+ramp-capacity-8 = 􀊼
+ramp-capacity-9 = 􀊼
+ramp-capacity-0-foreground = #BF616A
+ramp-capacity-1-foreground = #BF616A
+ramp-capacity-2-foreground = #D08770
+ramp-capacity-3-foreground = #D08770
+ramp-capacity-4-foreground = #8FBCBB
+ramp-capacity-5-foreground = #57C7FF
+ramp-capacity-6-foreground = #A3BE8C
+ramp-capacity-7-foreground = #A3BE8C
+ramp-capacity-8-foreground = #A3BE8C
+ramp-capacity-9-foreground = #A3BE8C
+ramp-capacity-foreground = ${colors.foreground}
+
+[module/temperature]
+type = internal/temperature
+format-prefix = "TEMP_"
+thermal-zone = 0
+warn-temperature = 60
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 􀇬
+ramp-1 = 􀇬
+ramp-2 = 􀇬
+ramp-foreground = ${colors.foreground-alt}
+
+[module/mic-muter]
+type = custom/ipc
+hook-0 = amixer set Capture nocap; echo " M "
+hook-1 = amixer set Capture cap; echo " A "
+initial = 1
+click-left = polybar-msg -p %pid% hook mic-muter 1
+click-right = polybar-msg -p %pid% hook mic-muter 2
+
+[module/headphone]
+type = custom/script
+exec = echo "􀑈"
+exec-if = ~/.config/polybar/scripts/headphone
+interval = 2
+
+[module/line]
+type = custom/text
+content="%{T2}|%{T-}"
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+; pseudo-transparency = true
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+[module/crypto]
+type = custom/script
+interval = 300
+exec = /home/george/.config/polybar/scripts/crypto.py
+
+[module/dunst]
+type = custom/ipc
+initial = 1
+format-foreground = ${colors.color3}
+format-background = ${colors.background}
+
+hook-0 = echo "%{A1: dunstctl set-paused true && polybar-msg hook dunst 2:} 􀋚 %{A}" &
+hook-1 = echo "%{A1: dunstctl set-paused false && polybar-msg hook dunst 1:} %{F#81A1C1}􀋞%{F-} %{A}" &
+
+; vim:ft=dosini
