@@ -1,8 +1,6 @@
 ##
 # Files
  mpd_music_dir = "~/Music"
- # lyrics_directory  = ~/.ncmpcpp/lyrics
- # ncmpcpp_directory  = ~/.ncmpcpp
  mpd_host = "127.0.0.1"
  mpd_port = "6600"
  mpd_connection_timeout = "5"
@@ -39,16 +37,6 @@ user_interface = "alternative"
 default_place_to_search_in = "database"
 
 
-# visualizer
-visualizer_fifo_path = "/tmp/mpd.fifo"
-visualizer_output_name = "my_fifo"
-visualizer_sync_interval = "12"
-#visualizer_type = "wave" (spectrum/wave)
-visualizer_type = "spectrum" (spectrum/wave)
-visualizer_in_stereo = "yes"
-visualizer_look = "+|"
-
-
 ## Navigation ##
 cyclic_scrolling = "yes"
 header_text_scrolling = "yes"
@@ -58,7 +46,6 @@ lines_scrolled = "2"
 ## Other ##
 system_encoding = "utf-8"
 regular_expressions = "extended"
-
 
 
 ## Selected tracks ##
@@ -76,7 +63,6 @@ titles_visibility = "yes"
 
 
 progressbar_look =  "=>-"
-progressbar_boldness = "yes"
 progressbar_elapsed_color = "white"
 
 now_playing_prefix = "> "
