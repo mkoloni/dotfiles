@@ -1,22 +1,30 @@
 # terminal emulator
 super + Return
-	kitty
+  kitty
+
+# screen shots
+alt + p
+	scrot
 
 # dropdown terminal
 super + u
-  scratchpad.sh dropdown
+  alacritty
 
 # program launcher
 super + {_,shift + }Return
-  dmenu_run
+	rofi -show run
 
 # terminal emulator
 super + b
-	qutebrowser
+	google-chrome-stable
 
 # terminal emulator
 super + n
-	spacefm
+	nitrogen
+
+# terminal emulator
+super + q
+	qbittorent
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -45,7 +53,6 @@ super + g
 # set the window state
 super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
 
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
@@ -97,7 +104,7 @@ super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 # expand a window by moving one of its side outward
-super + alt + {h,j,k,l}
+alt + {h,j,k,l}
 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
@@ -108,6 +115,3 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-# negative -w arg to account for a border width (default: 100%)
-alt + u
-    tdrop -ma -w -4 -y "$PANEL_HEIGHT" -s dropdown termite
