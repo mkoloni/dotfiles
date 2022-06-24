@@ -1,45 +1,52 @@
 #! /bin/sh
 
-pgrep -x sxhkd > /dev/null || sxhkd &
+pkill polybar
+pkill picom
+pkill conky
+pkill dunst
 
-bspc monitor -d I II III IV V VI
+bspc monitor -d • • • • •
 
-bspc config border_width         3
-bspc config window_gap          8
+#This creates negative padding equal to window gap so that gaps are shown only between windows and not on desktop edges.
+bspc config window_gap 20
+bspc config top_padding 29
+bspc config left_padding 15
+bspc config right_padding 15
+bspc config bottom_padding 29
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc config normal_border_color \#1a88d1
-bspc config focused_border_color \#1a88d1
-bspc config active_border_color \#D23D3D
+bspc config focused_border_color "#D23D3D"
+bspc config normal_border_color "#222D32"
+bspc config border_width 3
 
-# bspc rule -a Alacritty state=floating rectangle=1200x750+0+0 center=true
-bspc rule -a qutebrowser desktop='^3' follow=on
-# bspc rule -a google-chrome-stable desktop='^3' follow=on
-bspc rule -a Google-chrome state=floating  desktop='^3' rectangle=1200x800+30+62 center=on
-bspc rule -a qbittorent desktop='^6' follow=on
-bspc rule -a kitty state=floating rectangle=1200x800+30+62 center=on desktop='^2'
-bspc rule -a Evince state=floating rectangle=1200x800+30+62 center=on desktop='^2' follow=on
-bspc rule -a Nautilus state=floating rectangle=1200x800+30+62 center=on desktop='^4' follow=on
-bspc rule -a Spacefm state=floating rectangle=1200x800+30+62 center=on desktop='^4' follow=on
-bspc rule -a mpv state=floating rectangle=670x430+590+392 sticky=on
-bspc rule -a mplayer state=floating rectangle=670x430+590+392 sticky=on
-bspc rule -a Nitrogen state=floating rectangle=620x470+90+10 sticky=on
-bspc rule -a Alacritty state=floating rectangle=670x430+30+62 sticky=on
-bspc rule -a Sxiv state=floating rectangle=370x230+1000+570 sticky=on
+bspc config focus_follows_pointer true
 
+bspc rule -a kitty desktop='^1' follow=on
+bspc rule -a Google-chrome desktop='^2' follow=on
+bspc rule -a qutebrowser desktop='^2' follow=on
+bspc rule -a Evince desktop='^2' follow=on
+bspc rule -a nautilus desktop='^4' follow=on
+bspc rule -a Spacefm desktop='^4' follow=on
+
+bspc rule -a mpv state=floating rectangle=670x430+590+392
+bspc rule -a mplayer state=floating rectangle=670x430+590+392
+bspc rule -a Nitrogen state=floating rectangle=620x440+90+10 sticky=on
+bspc rule -a Alacritty state=floating rectangle=710x430+30+62 sticky=on
+bspc rule -a Sxiv state=floating rectangle=370x230+1000+570
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a mplayer2 state=floating
 
-brightnessctl set 40% &
+brightnessctl set 35% &
 picom &
 nitrogen --restore &
 conky &
-alacritty &
-xfce4-power-manager &
+dunst &
+sxhkd &
 bash ~/.config/polybar/launch.sh &
 sxiv -Z ~/.config/startup-images/courage.jpg &
 notify-send "Welcome Mkoloni" -u normal
+
